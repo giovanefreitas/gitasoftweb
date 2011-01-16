@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>GitaSoft - {% block title %}{% endblock %}</title>
+        
+        <link rel="stylesheet" type="text/css"
+            href="/static/css/humanity/jquery-ui-1.8.7.custom.css" />
+        <link rel='stylesheet' type='text/css' href='/static/css/fullcalendar.css' />
+        <link rel='stylesheet' type='text/css' href='/static/css/gitasoft.css' />
+
+    {% block css %}
+    {% endblock %}
+
+        <script type="text/javascript" src="/static/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript"
+            src="/static/js/jquery-ui-1.8.7.custom.min.js"></script>
+        <script type='text/javascript' src='/static/js/fullcalendar.min.js'></script>
+        <script type='text/javascript' src='/static/js/jquery.tmpl.min.js'></script>
+        <script type='text/javascript' src='/static/js/gitasoft.js'></script>
+        
+        <script type="text/javascript">
+        jQuery(function() {
+    
+            //Importante ser o primeiro
+            jQuery(document).bind("click", function() {
+                jQuery('#menu-popup').hide();
+            });
+    
+            // Datepicker
+            jQuery('#datepicker').datepicker({
+                inline : true,
+                showOtherMonths : true,
+                selectOtherMonths : true
+            });
+    
+            jQuery('.row-selector').live('click', function() {
+                if (this.checked)
+                    jQuery(this).parents('tr:first').find('td').addClass(
+                            'ui-state-highlight seleted-row');
+                else
+                    jQuery(this).parents('tr:first').find('td')
+                            .removeClass('ui-state-highlight seleted-row');
+            });
+    
+            jQuery('div.menu-item, a.menu-item').hover(
+                function() {
+                    jQuery(this).addClass('ui-state-hover');
+                }, function() {
+                    jQuery(this).removeClass('ui-state-hover');
+                }
+            );
+    
+            var tips = jQuery(".validateTips");
+    
+            function updateTips(t) {
+                tips.text(t).addClass("ui-state-highlight");
+                setTimeout(function() {
+                    tips.removeClass("ui-state-highlight", 1500);
+                }, 500);
+            }
+    
+            function checkLength(o, n, min, max) {
+                if (o.val().length > max || o.val().length < min) {
+                    o.addClass("ui-state-error");
+                    updateTips("Length of " + n + " must be between " + min
+                            + " and " + max + ".");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+    
+            function checkRegexp(o, regexp, n) {
+                if (!(regexp.test(o.val()))) {
+                    o.addClass("ui-state-error");
+                    updateTips(n);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+    
+            jQuery.template('userTemplate','<tr>'
+                + '<td class="ui-widget-content"><input type="checkbox" class="row-selector"></td>'
+                + '<td class="ui-widget-content">${name}</td>'
+                + '<td class="ui-widget-content">${email}</td>'
+                + '<td class="ui-widget-content">${password}</td>'
+                + '</tr>');
+    
+            var users = [ {
+                'name' : 'Juca',
+                'email' : 'juca@google.com',
+                'password' : '123456'
+            }, {
+                'name' : 'Jurema',
+                'email' : 'jurema@google.com',
+                'password' : '7891011'
+            } ];
+    
+            jQuery.tmpl("userTemplate", users).appendTo("#users tbody");
+    
+            jQuery("#dialog-form").dialog({
+                autoOpen : false,
+                height : 300,
+                width : 350,
+                modal : true,
+                buttons : {
+                    "Create an account" : function() {
+                        var bValid = true;
+                        var name = jQuery("#name2");
+                        var email = jQuery("#email2");
+                        var password = jQuery("#password2");
+                        var allFields = jQuery([]).add(name).add(
+                                email).add(password)
+    
+                        allFields.removeClass("ui-state-error");
+    
+                        bValid = bValid
+                                && checkLength(name, "username", 3,
+                                        16);
+                        bValid = bValid
+                                && checkLength(email, "email", 6,
+                                        80);
+                        bValid = bValid
+                                && checkLength(password,
+                                        "password", 5, 16);
+    
+                        bValid = bValid
+                                && checkRegexp(name,
+                                        /^[a-z]([0-9a-z_])+$/i,
+                                        "Username may consist of a-z, 0-9, underscores, begin with a letter.");
+                        // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                        bValid = bValid
+                                && checkRegexp(
+                                        email,
+                                        /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
+                                        "eg. ui@jquery.com");
+                        bValid = bValid
+                                && checkRegexp(password,
+                                        /^([0-9a-zA-Z])+$/,
+                                        "Password field only allow : a-z 0-9");
+    
+                        if (bValid) {
+                            var newUser = {
+                                'name' : name.val(),
+                                'email' : email.val(),
+                                'password' : password.val()
+                            };
+                            jQuery.tmpl("userTemplate", newUser)
+                                    .appendTo("#users tbody");
+                            jQuery(this).dialog("close");
+                        }
+                    },
+                    Cancel : function() {
+                        jQuery(this).dialog("close");
+                    }
+                },
+                close : function() {
+                    allFields.val("").removeClass("ui-state-error");
+                }
+            });
+    
+            jQuery("#create-user").button().click(function() {
+                jQuery("#dialog-form").dialog("open");
+            });
+    
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+    
+            jQuery('#calendar').fullCalendar({
+                theme : true,
+                header : {
+                    left : 'prev,next today',
+                    center : 'title',
+                    right : 'month,agendaWeek,agendaDay'
+                },
+                editable : true,
+                events : [ {
+                    title : 'All Day Event',
+                    start : new Date(y, m, 1)
+                }, {
+                    title : 'Long Event',
+                    start : new Date(y, m, d - 5),
+                    end : new Date(y, m, d - 2)
+                }, {
+                    id : 999,
+                    title : 'Repeating Event',
+                    start : new Date(y, m, d - 3, 16, 0),
+                    allDay : false
+                }, {
+                    id : 999,
+                    title : 'Repeating Event',
+                    start : new Date(y, m, d + 4, 16, 0),
+                    allDay : false
+                }, {
+                    title : 'Meeting',
+                    start : new Date(y, m, d, 10, 30),
+                    allDay : false
+                }, {
+                    title : 'Lunch',
+                    start : new Date(y, m, d, 12, 0),
+                    end : new Date(y, m, d, 14, 0),
+                    allDay : false
+                }, {
+                    title : 'Birthday Party',
+                    start : new Date(y, m, d + 1, 19, 0),
+                    end : new Date(y, m, d + 1, 22, 30),
+                    allDay : false
+                }, {
+                    title : 'Click for Google',
+                    start : new Date(y, m, 28),
+                    end : new Date(y, m, 29),
+                    url : 'http://google.com/'
+                } ]
+            });
+    
+            jQuery('#cadastroForm').submit(function() {
+                var bValid = true;
+
+                var name = jQuery("#name1");
+                var email = jQuery("#email1");
+                var password = jQuery("#password1");
+                var allFields = jQuery([]).add(name).add(email)
+                        .add(password)
+
+                allFields.removeClass("ui-state-error");
+
+                bValid = bValid
+                        && checkLength(name, "username", 3, 16);
+                bValid = bValid
+                        && checkLength(email, "email", 6, 80);
+                bValid = bValid
+                        && checkLength(password, "password", 5, 16);
+
+                bValid = bValid
+                        && checkRegexp(name,
+                                /^[a-z]([0-9a-z_])+$/i,
+                                "Username may consist of a-z, 0-9, underscores, begin with a letter.");
+                // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                bValid = bValid
+                        && checkRegexp(
+                                email,
+                                /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
+                                "eg. ui@jquery.com");
+                bValid = bValid
+                        && checkRegexp(password,
+                                /^([0-9a-zA-Z])+$/,
+                                "Password field only allow : a-z 0-9");
+
+                return bValid;
+            });
+    
+            jQuery('#link-mais').click(function(ev) {
+                var menu = jQuery('#menu-popup').get(0);
+                var linkPosition = jQuery(this).position();
+                menu.style.left = linkPosition.left + 'px';
+                menu.style.top = (linkPosition.top + jQuery(this).height()) + 'px';
+    
+                jQuery(menu).toggle();
+    
+                return false;
+            });
+    
+        });
+        </script>
+
+    {% block preload_js %}
+    {% endblock %}
+
+    {% block extra-head %}{% endblock %}
+
+    </head>
+    <body class="ui-widget-content" style="border: 0px;">
+    <div class="banner">
+      <div class="banner">
+        <div id="menubar" >
+          <nobr>
+            <a href="#" >Orkut</a> 
+            <b>Gmail</b> 
+            <a href="#" >Agenda</a> 
+            <a href="#" >Docs</a> 
+            <a href="#" >Web</a>
+            
+            <a id="link-mais" href="#" aria-haspopup="true">
+              <u>mais</u> <small>^</small>
+            </a>
+            
+            <div id="menu-popup" class="ui-widget ui-state-default menu-mais" style="background-image: none;">
+              <a href="#" class="menu-item">Reader</a> 
+              <a href="#" class="menu-item">Fotos</a> 
+              <a href="#" class="menu-item">Sites</a> 
+              <a href="#" class="menu-item">Grupos</a> 
+              <a href="#" class="menu-item">YouTube</a> 
+              <div class="separador"></div>
+              <a href="#" class="menu-item">Imagens</a> 
+              <a href="#" class="menu-item">Videos</a> 
+              <a href="#" class="menu-item">Mapas</a> 
+              <a href="#" class="menu-item">Noticias</a> 
+              <a href="#" class="menu-item">Livros</a> 
+              <a href="#" class="menu-item">Tradutor</a> 
+              <a href="#" class="menu-item">Blogs</a> 
+              <a href="#" class="menu-item">Em tempo real</a> 
+              <div class="separador"></div>
+              <a href="#" class="menu-item">e muito mais</a> 
+            </div>
+          </nobr>          
+        </div>
+        <div class="ui-state-highlight ui-corner-bottom status-message">
+          <span>Carregando...</span>
+        </div>
+        <div id="global-search">
+          <form>
+            <input name="searchText" type="text" title="Pesquisar registros [alt-f]" accesskey="f" value="" tabindex="1" placeholder="Pesquisa" autocomplete="off">
+            <button type="submit" name="button" class="search-button" title="Procurar por registros que contenham este texto.">
+              <img src="/static/img/search-icon.png" alt="Pesquisar">
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="ui-widget-content divisoria-h"></div>
+      
+    </div>
+    
+    <br/>
+
+    <div id="leftcontent">
+      <div id="menu" class="menu-categoria" >
+        <div class="menu-item"><a href="/fin/banco/conta/">Conta bancaria</a></div>
+        <div class="menu-item"><a href="/fin/caixa/">Fluxo de caixa</a></div>
+        <div class="menu-item"><span>Contas a pagar</span></div>
+        <div class="menu-item ui-state-default ui-state-highlight ui-state-active"><span>Contas a receber</span></div>
+        <div class="menu-item"><span>Lixeira</span></div>
+        <div class="menu-item"><span>Teste de um menu com texto longo que vai ultrapassar os limites</span></div>
+      </div>
+      <br/>
+      <div id="datepicker"></div>
+    </div>
+
+    <div id="centercontent">
+    
+      {% block content-header %}
+
+        {% if error %}
+        <div class="ui-widget">
+            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+                <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+                <strong>Aten&ccedil;&atilde;o:</strong> {{ error }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if info %}
+        <div class="ui-widget">
+            <div class="ui-widget">
+            <div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;"> 
+                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                  {{ info }}</p>
+             </div>
+        </div>
+        {% endif %}
+        
+        {% if messages %}
+            {% for message in messages %}
+            <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;"> 
+                    <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                    {{ message }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+      {% endblock %}
+
+      {% block content %}{% endblock %}
+      
+      <br/>
+      
+      <div class="ui-widget-content divisoria-h"></div>
+      
+      <div class="rodape">
+        <p>Texto de rodapa. Incluir alguma informacao adicional aqui.</p>
+        <p>&copy;2010 GitaSoft Desenvolvimento de Sistemas Ltda.</p>
+      </div>
+
+    </div>
+
+    <div id="rightcontent">
+      <div class="ui-widget-content" style="padding: 0.8em 0.4em;" >
+        {%if user %}
+        <strong>{{user.nickname}} &lt;{{user.email}}&gt;</strong>
+        {%if is_admin%} | <a href="/_ah/admin">Admin</a>{%endif%}
+        {%if sign_out%} | <a href="{{sign_out}}">Sign out</a>{%endif%}
+        {% else %}
+        {%if sign_in%}<a href="{{sign_in}}">Sign in</a>{%endif%}
+        {%endif%}
+      </div>
+      
+      <br/>
+      <!-- Seletor de temas -->
+      <script type="text/javascript"
+        src="http://jqueryui.com/themeroller/themeswitchertool/">
+      </script>
+      <div id="switcher" style=""></div>
+      <br/>
+      
+      <div class="ui-lembretes">
+        <div class="ui-title ui-widget-header ui-corner-top">Lembretes</div>
+        <div class="ui-lembrete-content ui-widget-content">
+          <p>Bla</p>
+          <p>Bla</p>
+          <p>Bla</p>
+          <p>Bla</p>
+          <p>Bla</p>
+        </div>
+      </div>
+    </div>
+    
+    </body>
+    </body>
+</html>

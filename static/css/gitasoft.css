@@ -1,0 +1,253 @@
+body {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.62em;
+    margin: 10px 10px 0px 10px;
+    padding: 0px;
+}
+
+#leftcontent {
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    width: 200px;
+}
+
+#centercontent {
+    margin-left: 201px;
+    margin-right: 201px;
+    top: 50px;
+}
+
+#rightcontent {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 190px;
+}
+
+.banner {
+    height: 30px;
+}
+
+.status-message {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    border-top-style: none;
+    border-top: none;
+    margin-left: -45px;
+    font-size: 1.3em;
+    padding: 2px 10px;
+}
+
+#global-search {
+    position: absolute;
+    right: 20px;
+}
+
+.search-field {
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 13px;
+    margin: 0px;
+    padding: 3px;
+    vertical-align: top;
+    width: 14em;
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: x-small;
+    margin: 0px 0px;
+    padding: 0px;
+}
+
+.divisoria-h {
+    clear: both;
+}
+
+#calendar {
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+.rodape {
+    text-align: center;
+}
+
+.ui-form {
+    width: 100%;
+    background-image: none;
+    font-size: 1.2em;
+}
+
+.ui-form-content {
+    margin: 10px;
+}
+
+.ui-form label,.ui-form input {
+    display: block;
+}
+
+.ui-form input.text {
+    margin-bottom: 12px;
+    width: 95%;
+    padding: .4em;
+}
+
+.ui-form fieldset {
+    padding: 0;
+    border: 0;
+    margin-top: 25px;
+}
+
+.ui-grid {
+    width: 100%;
+    background-image: none;
+}
+
+.ui-grid-content {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ui-grid table tbody td,.ui-grid table thead a {
+    padding: .4em;
+}
+
+.ui-grid table tbody td {
+    font-weight: normal;
+}
+
+.ui-grid .ui-grid-footer {
+    background-image: none;
+    font-weight: normal;
+    text-align: left;
+    padding: .8em .4em;
+}
+
+.ui-grid table thead a {
+    display: block;
+}
+
+.ui-grid .ui-icon {
+    float: right;
+}
+
+.ui-grid .ui-grid-paging {
+    float: right;
+}
+
+.ui-grid .ui-grid-paging-prev {
+    float: left;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-grid .ui-grid-paging-next {
+    float: right;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-grid .ui-grid-results {
+    
+}
+
+.ui-grid .seleted-row {
+    font-weight: bold;
+}
+
+.ui-title {
+    padding: .8em .4em;
+    text-align: center;
+}
+
+.ui-lembretes {
+    width: 100%;
+    background-image: none;
+    padding-top: .8em;
+}
+
+.ui-lembrete-content {
+    padding-left: .8em;
+}
+
+.menu-categoria {
+    width: 190px;
+}
+
+.menu-item {
+    color: black;
+    overflow: hidden;
+    padding: .3em;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: block;
+}
+
+.menu-categoria span,.menu-categoria a {
+    color: black;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.ui-dialog-form label,.ui-dialog-form input {
+    display: block;
+}
+
+.ui-dialog-form input.text {
+    margin-bottom: 12px;
+    width: 95%;
+    padding: .4em;
+}
+
+.ui-dialog-form fieldset {
+    padding: 0;
+    border: 0;
+    margin-top: 25px;
+}
+
+.ui-dialog .ui-state-error {
+    padding: .3em;
+}
+
+.validateTips {
+    border: 1px solid transparent;
+    padding: 0.3em;
+}
+
+#menubar {
+    float: left;
+    height: 20px;
+    font-size: 1.3em;
+}
+
+#menubar span {
+    margin-right: 5px;
+}
+
+.menu-mais {
+    left: 0px;
+    position: absolute;
+    text-align: left;
+    display: none;
+    z-index: 1000;
+}
+
+nobr {
+    white-space: nowrap;
+}
+
+div.separador {
+    border-top: 1px solid #CCC !important;
+}
+
+a.menu-item {
+    text-decoration: none;
+}

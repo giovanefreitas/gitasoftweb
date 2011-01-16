@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Contas bancárias{% endblock %}
+
+{% block content %}
+<h1>Contas bancárias</h1>
+
+<div class="ui-form ui-widget-content ui-corner-all">
+  <div class="ui-form-content">
+    <p class="validateTips">Todos os campos s&atilde;o obrigat&oacute;rios.</p>
+    <form action="{% url gitasoft.financa.views.conta_bancaria %}" method="post" accept-charset="utf-8">
+      {{ form }}
+      <p><input type="submit" value="Cadastrar"/></p>
+    </form>
+  </div>
+</div>
+
+<div class="ui-form ui-widget-content ui-corner-all">
+  <div class="ui-form-content">
+    <div class="ui-grid"> 
+      <table class="ui-widget-content ui-grid-content">
+        <thead>
+          <tr class="ui-widget-header ">
+            <th class="ui-state-default" ></th>
+            <th class="ui-state-default" >Banco</th>
+            <th class="ui-state-default" >Ag&ecirc;ncia</th>
+            <th class="ui-state-default" >N&uacute;mero</th>
+            <th class="ui-state-default" >Descri&ccedil;&atilde;o</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for conta in contas %}
+          <tr>
+              <td class="ui-widget-content"><input type="checkbox" class="row-selector"></td>
+              <td class="ui-widget-content">{{ conta.banco }}</td>
+              <td class="ui-widget-content">{{ conta.agencia }} </td>
+              <td class="ui-widget-content">{{ conta.numero }}</td>
+              <td class="ui-widget-content">{{ conta.descricao }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
