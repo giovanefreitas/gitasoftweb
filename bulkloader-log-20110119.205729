@@ -1,0 +1,105 @@
+[INFO     2011-01-19 20:57:29,093 bulkloader.py] Logging to bulkloader-log-20110119.205729
+[INFO     2011-01-19 20:57:29,095 bulkloader.py] Throttling transfers:
+[INFO     2011-01-19 20:57:29,095 bulkloader.py] Bandwidth: 250000 bytes/second
+[INFO     2011-01-19 20:57:29,096 bulkloader.py] HTTP connections: 8/second
+[INFO     2011-01-19 20:57:29,096 bulkloader.py] Entities inserted/fetched/modified: 20/second
+[INFO     2011-01-19 20:57:29,096 bulkloader.py] Batch Size: 10
+[INFO     2011-01-19 20:57:29,109 bulkloader.py] Opening database: bulkloader-progress-20110119.205729.sql3
+[DEBUG    2011-01-19 20:57:29,702 adaptive_thread_pool.py] [WorkerThread-0] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,703 adaptive_thread_pool.py] [WorkerThread-1] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,703 adaptive_thread_pool.py] [WorkerThread-2] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,704 adaptive_thread_pool.py] [WorkerThread-3] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,704 adaptive_thread_pool.py] [WorkerThread-4] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,704 adaptive_thread_pool.py] [WorkerThread-5] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,705 adaptive_thread_pool.py] [WorkerThread-6] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,705 adaptive_thread_pool.py] [WorkerThread-7] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,706 adaptive_thread_pool.py] [WorkerThread-8] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,706 adaptive_thread_pool.py] [WorkerThread-9] WorkerThread: started
+[DEBUG    2011-01-19 20:57:29,706 bulkloader.py] Configuring remote_api. url_path = /remote_api, servername = localhost:8080
+[DEBUG    2011-01-19 20:57:31,222 bulkloader.py] Bulkloader using app_id: gitasoftweb
+[INFO     2011-01-19 20:57:31,222 bulkloader.py] Connecting to localhost:8080/remote_api
+[DEBUG    2011-01-19 20:57:31,342 bulkloader.py] [Thread-11] ProgressTrackerThread: started
+[DEBUG    2011-01-19 20:57:31,342 bulkloader.py] [Thread-12] DataSourceThread: started
+[INFO     2011-01-19 20:57:31,343 bulkloader.py] Starting import; maximum 10 entities per post
+[DEBUG    2011-01-19 20:57:31,359 bulkloader.py] [Thread-12] DataSourceThread: exiting
+[DEBUG    2011-01-19 20:57:31,367 adaptive_thread_pool.py] [WorkerThread-0] Got work item [1-10]
+[DEBUG    2011-01-19 20:57:31,374 bulkloader.py] Waiting for worker threads to finish...
+[ERROR    2011-01-19 20:57:31,379 adaptive_thread_pool.py] [WorkerThread-0] WorkerThread:
+Traceback (most recent call last):
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/adaptive_thread_pool.py", line 150, in WorkOnItems
+    status, instruction = item.PerformWork(self.__thread_pool)
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/bulkloader.py", line 691, in PerformWork
+    transfer_time = self._TransferItem(thread_pool)
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/bulkloader.py", line 848, in _TransferItem
+    self.request_manager.PostEntities(self.content)
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/bulkloader.py", line 1300, in PostEntities
+    datastore.Put(entities)
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore.py", line 404, in Put
+    return _GetConnection().async_put(config, entities, extra_hook).get_result()
+  File "/home/giovane/programas/google_appengine/google/appengine/datastore/datastore_rpc.py", line 1130, in async_put
+    for pbs in pbsgen:
+  File "/home/giovane/programas/google_appengine/google/appengine/datastore/datastore_rpc.py", line 993, in __generate_pb_lists
+    pb = value_to_pb(value)
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore.py", line 202, in entity_to_pb
+    return entity._ToPb()
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore.py", line 762, in _ToPb
+    properties = datastore_types.ToPropertyPb(name, values)
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore_types.py", line 1530, in ToPropertyPb
+    pbvalue = pack_prop(name, v, pb.mutable_value())
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore_types.py", line 1353, in PackString
+    pbvalue.set_stringvalue(unicode(value).encode('utf-8'))
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
+[INFO     2011-01-19 20:57:31,414 adaptive_thread_pool.py] [WorkerThread-2] Backing off due to errors: 1.0 seconds
+[DEBUG    2011-01-19 20:57:31,415 adaptive_thread_pool.py] [WorkerThread-0] WorkerThread: exiting
+[INFO     2011-01-19 20:57:31,874 bulkloader.py] An error occurred. Shutting down...
+[DEBUG    2011-01-19 20:57:31,876 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,876 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,877 adaptive_thread_pool.py] [WorkerThread-7] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,877 adaptive_thread_pool.py] [WorkerThread-9] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,878 adaptive_thread_pool.py] [WorkerThread-8] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,878 adaptive_thread_pool.py] [WorkerThread-1] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,878 adaptive_thread_pool.py] [WorkerThread-4] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,878 adaptive_thread_pool.py] [WorkerThread-3] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,879 adaptive_thread_pool.py] [WorkerThread-6] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,879 adaptive_thread_pool.py] [WorkerThread-5] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,879 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,915 adaptive_thread_pool.py] [WorkerThread-2] WorkerThread: exiting
+[DEBUG    2011-01-19 20:57:31,916 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,916 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,916 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,916 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,916 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,916 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[DEBUG    2011-01-19 20:57:31,917 adaptive_thread_pool.py] Waiting for Anonymous_WorkerThread to exit
+[ERROR    2011-01-19 20:57:31,917 adaptive_thread_pool.py] Error in WorkerThread-0: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
+[DEBUG    2011-01-19 20:57:31,917 adaptive_thread_pool.py] Traceback (most recent call last):
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/adaptive_thread_pool.py", line 150, in WorkOnItems
+    status, instruction = item.PerformWork(self.__thread_pool)
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/bulkloader.py", line 691, in PerformWork
+    transfer_time = self._TransferItem(thread_pool)
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/bulkloader.py", line 848, in _TransferItem
+    self.request_manager.PostEntities(self.content)
+  File "/home/giovane/programas/google_appengine/google/appengine/tools/bulkloader.py", line 1300, in PostEntities
+    datastore.Put(entities)
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore.py", line 404, in Put
+    return _GetConnection().async_put(config, entities, extra_hook).get_result()
+  File "/home/giovane/programas/google_appengine/google/appengine/datastore/datastore_rpc.py", line 1130, in async_put
+    for pbs in pbsgen:
+  File "/home/giovane/programas/google_appengine/google/appengine/datastore/datastore_rpc.py", line 993, in __generate_pb_lists
+    pb = value_to_pb(value)
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore.py", line 202, in entity_to_pb
+    return entity._ToPb()
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore.py", line 762, in _ToPb
+    properties = datastore_types.ToPropertyPb(name, values)
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore_types.py", line 1530, in ToPropertyPb
+    pbvalue = pack_prop(name, v, pb.mutable_value())
+  File "/home/giovane/programas/google_appengine/google/appengine/api/datastore_types.py", line 1353, in PackString
+    pbvalue.set_stringvalue(unicode(value).encode('utf-8'))
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
+
+[DEBUG    2011-01-19 20:57:31,919 bulkloader.py] Waiting for progress_thread to terminate...
+[DEBUG    2011-01-19 20:57:32,053 bulkloader.py] [Thread-11] ProgressTrackerThread: exiting
+[DEBUG    2011-01-19 20:57:32,084 bulkloader.py] ... done.
+[INFO     2011-01-19 20:57:32,085 bulkloader.py] 117 entites total, 0 previously transferred
+[INFO     2011-01-19 20:57:32,085 bulkloader.py] 0 entities (273 bytes) transferred in 3.0 seconds
+[INFO     2011-01-19 20:57:32,085 bulkloader.py] Some entities not successfully transferred

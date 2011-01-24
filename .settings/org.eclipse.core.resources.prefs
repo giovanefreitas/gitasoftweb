@@ -1,6 +1,8 @@
-#Tue Jan 18 21:27:22 BRST 2011
+#Thu Jan 20 21:42:51 BRST 2011
 eclipse.preferences.version=1
 encoding//data/bancos.csv=UTF-8
+encoding//gitasoft/ext/validation.py=utf-8
+encoding//gitasoft/financa/forms.py=utf-8
 encoding//gitasoft/financa/models.py=utf-8
 encoding//templates/base.html=UTF-8
 encoding//templates/gift.html=UTF-8

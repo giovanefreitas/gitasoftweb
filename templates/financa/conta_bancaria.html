@@ -31,7 +31,7 @@
           {% for conta in contas %}
           <tr>
               <td class="ui-widget-content"><input type="checkbox" class="row-selector"></td>
-              <td class="ui-widget-content">{{ conta.banco }}</td>
+              <td class="ui-widget-content">{{ conta.banco.nome }}</td>
               <td class="ui-widget-content">{{ conta.agencia }} </td>
               <td class="ui-widget-content">{{ conta.numero }}</td>
               <td class="ui-widget-content">{{ conta.descricao }}</td>

@@ -53,10 +53,10 @@ def conta_bancaria(request):
     if request.method == 'POST':
         form = forms.ContaBancariaForm(request.POST)
         if form.is_valid():
-            form.save(request.user)
+            form.save(users.get_current_user())
             form = forms.ContaBancariaForm()
     
-    user = users.GetCurrentUser()
+    user = users.get_current_user()
     contas = db.GqlQuery('SELECT * FROM ContaBancaria')
     return respond(request, user, 'financa/conta_bancaria', {'contas': contas, 'form': form})
 
@@ -65,8 +65,8 @@ def caixa(request):
     if request.method == 'POST':
         form = forms.MovimentacaoForm(request.POST)
         if form.is_valid():
-            form.save(request.user)
+            form.save(users.get_current_user())
     
-    user = users.GetCurrentUser()
+    user = users.get_current_user()
     movimentacoes = db.GqlQuery('SELECT * FROM Movimentacao')
     return respond(request, user, 'financa/caixa', {'movimentacoes': movimentacoes, 'form': form})

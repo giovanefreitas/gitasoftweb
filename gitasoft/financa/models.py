@@ -11,13 +11,19 @@ class Banco(db.Model):
     codigo = db.StringProperty(verbose_name='Código')
     nome = db.StringProperty()
     site = db.StringProperty()
+    
+    def __unicode__(self):
+        return self.nome
 
 class ContaBancaria(db.Model):
     banco = db.ReferenceProperty(Banco)
     agencia = db.StringProperty(verbose_name='Agência')
     numero = db.StringProperty(verbose_name='Número')
     descricao = db.StringProperty(verbose_name='Descrição')
-    user = db.UserProperty(required=True)
+    user = db.UserProperty(required=False)
+    
+    def __unicode__(self):
+        return self.descricao
 
 class Movimentacao(db.Model):
     data = db.DateTimeProperty(auto_now_add = True)
