@@ -27,4 +27,8 @@ urlpatterns = patterns(
     ('^fin/banco/$', 'gitasoft.financa.views.banco'),
     ('^fin/banco/conta/$', 'gitasoft.financa.views.conta_bancaria'),
     ('^fin/caixa/$', 'gitasoft.financa.views.caixa'),
+    
+    #Modulo de pacientes
+    ('^paciente/$', 'gitasoft.paciente.views.paciente'),
+    
     )

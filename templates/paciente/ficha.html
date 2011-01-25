@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Pacientes{% endblock %}
+
+{% block content %}
+<h1>Pacientes</h1>
+
+<div class="ui-form ui-widget-content ui-corner-all">
+  <div class="ui-form-content">
+    <p class="validateTips">Todos os campos s&atilde;o obrigat&oacute;rios.</p>
+    <form action="{% url gitasoft.paciente.views.paciente %}" method="post" accept-charset="utf-8">
+      {{ form }}
+      <input name="teste1">
+      <p><input type="submit" value="Cadastrar"/></p>
+    </form>
+  </div>
+</div>
+
+<div class="ui-form ui-widget-content ui-corner-all">
+  <div class="ui-form-content">
+    <div class="ui-grid"> 
+      <table class="ui-widget-content ui-grid-content">
+        <thead>
+          <tr class="ui-widget-header ">
+            <th class="ui-state-default" ></th>
+            <th class="ui-state-default" >Nome</th>
+            <th class="ui-state-default" >Extras</th>
+            <th class="ui-state-default" >teste1</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for paciente in pacientes %}
+          <tr>
+              <td class="ui-widget-content"><input type="checkbox" class="row-selector"></td>
+              <td class="ui-widget-content">{{ paciente.nome }}</td>
+              <td class="ui-widget-content">{{ paciente.dynamic_properties }}</td>
+              <td class="ui-widget-content">{{ paciente.teste1 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
