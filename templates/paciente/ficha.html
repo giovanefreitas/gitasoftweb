@@ -9,7 +9,6 @@
     <p class="validateTips">Todos os campos s&atilde;o obrigat&oacute;rios.</p>
     <form action="{% url gitasoft.paciente.views.paciente %}" method="post" accept-charset="utf-8">
       {{ form }}
-      <input name="teste1">
       <p><input type="submit" value="Cadastrar"/></p>
     </form>
   </div>
@@ -23,8 +22,6 @@
           <tr class="ui-widget-header ">
             <th class="ui-state-default" ></th>
             <th class="ui-state-default" >Nome</th>
-            <th class="ui-state-default" >Extras</th>
-            <th class="ui-state-default" >teste1</th>
           </tr>
         </thead>
         <tbody>
@@ -32,8 +29,6 @@
           <tr>
               <td class="ui-widget-content"><input type="checkbox" class="row-selector"></td>
               <td class="ui-widget-content">{{ paciente.nome }}</td>
-              <td class="ui-widget-content">{{ paciente.dynamic_properties }}</td>
-              <td class="ui-widget-content">{{ paciente.teste1 }}</td>
           </tr>
           {% endfor %}
         </tbody>

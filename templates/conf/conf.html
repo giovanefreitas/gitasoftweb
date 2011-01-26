@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Pacientes{% endblock %}
+
+{% block content %}
+<h1>Configura&ccedil;&otilde;es</h1>
+
+<div class="ui-form ui-widget-content ui-corner-all">
+  <div class="ui-form-content">
+    <form action="{% url gitasoft.conf.views.conf %}" method="post" accept-charset="utf-8">
+      {{ form }}
+      <p><input type="submit" value="Cadastrar"/></p>
+    </form>
+  </div>
+</div>
+
+
+<div class="ui-form ui-widget-content ui-corner-all">
+  <div class="ui-form-content">
+    <ul>
+	    {% for perfil in perfis %}
+	        <li>{{ perfil.key }} - {{ perfil.tema }} - {{ perfil.consultorio }} - {{ perfil.responsavel }} - {{ perfil.reply_to }}</li>
+	    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

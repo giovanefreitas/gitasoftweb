@@ -23,6 +23,9 @@ urlpatterns = patterns(
     (r'^new$', 'views.new'),
     (r'^edit/(\d+)$', 'views.edit'),
 
+    #Modulo de configuracao
+    ('^conf/$', 'gitasoft.conf.views.conf'),
+
     #Modulo financeiro
     ('^fin/banco/$', 'gitasoft.financa.views.banco'),
     ('^fin/banco/conta/$', 'gitasoft.financa.views.conta_bancaria'),
