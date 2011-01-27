@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}Pacientes{% endblock %}
 
+{% block extra-head %}
+<script type="text/javascript">
+  jQuery(function(){
+    jQuery.template( 'atributoTemplate', 
+      '<tr>' +
+        '<td class="ui-widget-content"><input type="text" name="nome_atributo_paciente"></td>' + 
+        '<td class="ui-widget-content"><select name="tipo_atributo_paciente">' +
+            '<option value="TEXT">Texto</option>' +
+            '<option value="INT">N&uacute;mero</option>' +
+            '<option value="DATE">Data</option>' +
+            '<option value="TIME">Hora</option>' +
+          '</select></td>' + 
+        '<td class="ui-widget-content">' + 
+          '<a href="#" class="ui-icon ui-icon-trash" onclick="jQuery(this).parent().parent().remove()">Remover</a>' +
+        '</td>' +
+       '</tr>' );
+  });
+  
+  function novoAtributo(idTabela){
+    jQuery.tmpl( 'atributoTemplate' ).appendTo( '#' + idTabela + ' tbody' );
+  }
+</script>
+{% endblock %}
+
 {% block content %}
 <h1>Configura&ccedil;&otilde;es</h1>
 
@@ -8,6 +32,35 @@
   <div class="ui-form-content">
     <form action="{% url gitasoft.conf.views.conf %}" method="post" accept-charset="utf-8">
       {{ form }}
+      <div>
+        <span>Cadastro de paciente</span>
+        <span>Campos personalizados</span>
+        <div class="ui-form ui-widget-content ui-corner-all">
+          <div class="ui-form-content">
+            <div class="ui-grid"> 
+               <table id="atributos-paciente" class="ui-widget-content ui-grid-content">
+                 <thead>
+                   <tr class="ui-widget-header ">
+                     <th class="ui-state-default" >Nome</th>
+                     <th class="ui-state-default" >Tipo</th>
+                     <th class="ui-state-default" ></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                 {% for atributo in conf.atributos_paciente %}
+                   <tr>
+                     <td class="ui-widget-content">{{ atributo.descricao }}</td>
+                     <td class="ui-widget-content">{{ atributo.tipo }} </td>
+                     <td class="ui-widget-content"><a href="#" onclick="jQuery(this).parent().parent().remove()">Remover</a></td>
+                   </tr>
+                 {% endfor %}
+                 </tbody>
+               </table>
+               <button onclick="novoAtributo('atributos-paciente')" type="button">Novo atributo</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <p><input type="submit" value="Cadastrar"/></p>
     </form>
   </div>
