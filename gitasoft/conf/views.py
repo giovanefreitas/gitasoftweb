@@ -10,7 +10,6 @@ from gitasoft.conf import forms
 
 def conf(request):
     user = users.get_current_user()
-    
     configuracao = gm.Configuracao.all().get()
     if configuracao == None:
         configuracao = gm.Configuracao(user=user)
@@ -20,5 +19,13 @@ def conf(request):
         form = forms.ConfiguracaoForm(request.POST, instance=configuracao)
         if form.is_valid():
             form.save(user)
-
-    return utils.respond(request, user, 'conf/conf.html', {'form': form, 'perfis' : gm.Configuracao.all()})
+            for (atributo) in form.atributos_paciente():
+                atributo.put()
+    
+    params = {
+        'form': form, 
+        'perfis' : gm.Configuracao.all(),
+        'atributos_paciente' : gm.AtributoExtra.gql("WHERE entidade = 'Paciente' "),
+    }
+    
+    return utils.respond(request, user, 'conf/conf.html', params)

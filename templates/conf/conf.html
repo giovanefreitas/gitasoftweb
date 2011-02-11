@@ -6,8 +6,8 @@
   jQuery(function(){
     jQuery.template( 'atributoTemplate', 
       '<tr>' +
-        '<td class="ui-widget-content"><input type="text" name="nome_atributo_paciente"></td>' + 
-        '<td class="ui-widget-content"><select name="tipo_atributo_paciente">' +
+        '<td class="ui-widget-content"><input type="text" name="atributo_${entidade}_${index}"></td>' + 
+        '<td class="ui-widget-content"><select name="tipo_atributo_${entidade}_${index}">' +
             '<option value="TEXT">Texto</option>' +
             '<option value="INT">N&uacute;mero</option>' +
             '<option value="DATE">Data</option>' +
@@ -19,8 +19,12 @@
        '</tr>' );
   });
   
-  function novoAtributo(idTabela){
-    jQuery.tmpl( 'atributoTemplate' ).appendTo( '#' + idTabela + ' tbody' );
+  function novoAtributo(entidade){
+    var params = { 
+       'index': jQuery('#atributos-' + entidade + ' tbody tr').size(),
+       'entidade': entidade
+    };
+    jQuery.tmpl( 'atributoTemplate', params ).appendTo( '#atributos-' + entidade + ' tbody' );
   }
 </script>
 {% endblock %}
@@ -32,6 +36,7 @@
   <div class="ui-form-content">
     <form action="{% url gitasoft.conf.views.conf %}" method="post" accept-charset="utf-8">
       {{ form }}
+      
       <div>
         <span>Cadastro de paciente</span>
         <span>Campos personalizados</span>
@@ -47,20 +52,34 @@
                    </tr>
                  </thead>
                  <tbody>
-                 {% for atributo in conf.atributos_paciente %}
+                 {% for atributo in atributos_paciente %}
                    <tr>
-                     <td class="ui-widget-content">{{ atributo.descricao }}</td>
-                     <td class="ui-widget-content">{{ atributo.tipo }} </td>
-                     <td class="ui-widget-content"><a href="#" onclick="jQuery(this).parent().parent().remove()">Remover</a></td>
+                     <td class="ui-widget-content">
+                        <input type="hidden" name="id_atributo_paciente_{{ forloop.counter0 }}" value="{{ atributo.key.id }}">
+                        <input type="text" name="atributo_paciente_{{ forloop.counter0 }}" value="{{ atributo.nome }}">
+                     </td> 
+                     <td class="ui-widget-content">
+                       <select name="tipo_atributo_paciente_{{ forloop.counter0 }}">
+                         <option value="TEXT">Texto</option>
+                         <option value="INT">N&uacute;mero</option>
+                         <option value="DATE">Data</option>
+                         <option value="TIME">Hora</option>
+                       </select>
+                     </td>
+                     <td class="ui-widget-content"> 
+                       <a href="#" class="ui-icon ui-icon-trash" onclick="jQuery(this).parent().parent().remove()">Remover</a>
+                     </td>
                    </tr>
                  {% endfor %}
                  </tbody>
                </table>
-               <button onclick="novoAtributo('atributos-paciente')" type="button">Novo atributo</button>
+               <button onclick="novoAtributo('paciente')" type="button">Novo atributo</button>
             </div>
           </div>
         </div>
       </div>
+      
+      
       <p><input type="submit" value="Cadastrar"/></p>
     </form>
   </div>
